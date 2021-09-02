@@ -1,0 +1,88 @@
+
+1. 了解pyqt5库结构(继承机制)
+文档：
+常用模块：
+    QtWidgets: 包含一整套UI元素控件，用于建立符合系统风格的界面
+    QtGui: 涵盖多种基本图形功能的类
+        字体、图形、图标、颜色...
+    QtCore: 涵盖非GUI功能的类
+        时间、文件、目录、数据类型、文本流、链接、进程线程
+    QT：将基本模块中的类综合到一个单一模块中(from PyQt5.Qt import *)
+    多媒体：
+        QtMultimedia
+        QtMultimediaWidgets
+
+2. 基本代码结构
+
+#导包
+# from PyQt5.QtWidgets import QApplication,QWidget,QLabel
+from PyQt5.Qt import QApplication,QWidget,QLabel,qApp
+import sys
+
+# 注释：
+# 一、代码执行方式有两种：
+# 1. vscode中执行  
+# 2.命令行执行     
+# args= sys.argv
+# print(args)
+# 二、创建一个窗口
+# app=QApplication(sys.argv)
+# 获取参数
+# print(app.arguments())
+# print(qApp.arguments)
+# 三、应用程序的执行，进入到消息循环
+# 让整个程序开始执行，并且进入到消息循环(检测整个程序所接收到的用户的交互信息)
+# app.exec_()
+# 四、退出码
+# sys.exit(app.exec_())
+
+#创建一个应用程序
+app=QApplication(sys.argv)
+# 控件的操作
+# 创建控件，设置控件（大小，位置，样式...），事件，信号的处理
+# 2.1 创建控件
+# 当创建一个控件之后，如果这个控件没有父控件，则把它当作顶层控件
+# 系统会自动为顶层控件添加一些装饰,多个顶层控件会分不同窗口显示
+# window=QWidget()  #创建一个窗口
+# window=QPushButton() #创建一个按钮
+window=QLabel()     #创建一个标签
+# 2.2 设置控件
+window.setWindowTitle("aaaa")
+window.resize(500,500)
+window.move(400,200)
+# 2.3 设置子控件
+label=QLabel(window)
+label.setText("xxx")
+label.move(200,200)
+# 2.4 展示控件，顶层控件(无父控件)需展示，子控件可以不用
+window.show()
+#开始执行应用程序，并进入消息循环
+sys.exit(app.exec_())
+
+3.活动模板
+文件---首选项---用户片段(vs code)
+
+4.面向对象(继承机制)
+#class Window(QWidget):
+#    def __init__(self):
+#        super().__init__()
+#        self.setWindowTitle("QDialog的学习")
+# 获取类的子类
+from PyQt5.Qt import QWidget,QObject,QAbstractButton
+# print(QObject.__subclasses__())
+# print(QWidget.__subclasses__())
+# print(QAbstractButton.__subclasses__())
+# 获取类的父类
+print(QAbstractButton.__bases__)
+print("####")
+print(QAbstractButton.mro())
+
+5.对象名称，属性(QObject)
+应用场景：css过滤
+
+6.父子对象
+作用：
+    子控件空间上受父控件限制
+    子控件随父控件销毁而销毁
+
+7.信号与槽
